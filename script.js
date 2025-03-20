@@ -4,7 +4,7 @@ let newProjectBtn = document.getElementById("newProject");
 let projectDiv = document.getElementById('project');
 let dashboard = document.getElementById('dashboard');
 let newProjectInput = document.getElementById('newProjectInput');
-
+let addTaskBtn = document.getElementById('addTask');
 let currentProject = "none";
 let todoList = [];
 newProjectBtn.addEventListener('click', function(){

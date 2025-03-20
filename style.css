@@ -17,7 +17,7 @@ body {
 #dashboard{
   background-color: #E4BB97;
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 10px;
 }
 .task {
@@ -60,4 +60,22 @@ body {
   border-radius: 5px;
   border: none;
   font-size: 16px;
+}
+
+.date {
+  font-size: 20px;
+}
+
+#addTask {
+  height: 190px;
+  border: 5px dashed #9D5C63;
+  background-color: #FEF5EF;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#addTask h2 {
+  font-size: 100px;
+  color:#9D5C63;
 }
