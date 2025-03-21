@@ -7,6 +7,33 @@
 </head>
 <body>
   <h1>Todo</h1>
+  <div id="addTodoMenuAdd">
+    <div id="addTodoMenu">
+      <form id='todo-form' action="">
+        <div id="todo-inputs">
+          <label for="task">Task</label>
+          <input id="taskInput" name='task' type="text">
+          <br>
+          <label for="desc">Description</label>
+          <textarea id="descInput" id="todo-desc" name='desc' type="text"></textarea>
+          <br>
+          <label for="date">Calendar</label>
+          <input id="dateInput" name='date' type="date">
+          <br>
+          <label for="priority">Priority</label>
+          <select id='todo-priority' name='priority' type="text">
+            <option value="low">Low</option>
+            <option value="med">Med</option>
+            <option value="high">High</option>
+          </select>
+          <br>
+          <label for="note">Note</label>
+          <textarea id="noteInput" name='note' type="text"></textarea>
+        </div>
+        <button id='todo-submit-button' type="button">Add</button>
+      </form>
+    </div>
+  </div>
   <div id="fourth-divider">
     <div id="project">
       <div id="newProjectDiv">
@@ -14,14 +41,17 @@
         <div id="newProject">+</div>
       </div>
     </div>
-    <div id="dashboard">
-      <div id="addTask">
-        <h2>+</h2>
+    <div id="dashboard-div">
+      <div id="dashboard">
+        <div class='task' id="addTask">
+          <h2>+</h2>
+        </div>
+        <div class="task">
+          <h2>Task 1</h2>
+          <p class="date">10/14/2025</p>
+        </div>
+        </div>
       </div>
-      <div class="task">
-        <h2>Task 1</h2>
-        <p class="date">10/14/2025</p>
-      </div>
-  </div>
+    </div>
 </body>
 </html>

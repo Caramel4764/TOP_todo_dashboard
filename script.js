@@ -5,10 +5,29 @@ let projectDiv = document.getElementById('project');
 let dashboard = document.getElementById('dashboard');
 let newProjectInput = document.getElementById('newProjectInput');
 let addTaskBtn = document.getElementById('addTask');
-let currentProject = "none";
+let todoSubmitBtn = document.getElementById("todo-submit-button");
+
+let taskInput = document.getElementById('taskInput');
+let dateInput = document.getElementById('dateInput');
+let noteInput = document.getElementById('noteInput');
+let descInput = document.getElementById('descInput');
+let priorityInput = document.getElementById('todo-priority');
+
+
+
+let currentProject = "All";
 let todoList = [];
+
 newProjectBtn.addEventListener('click', function(){
-  let value = newProjectInput.value
+  createNewProject(newProjectInput.value)
+})
+
+todoSubmitBtn.addEventListener('click', function() {
+  addTodo();
+  updateTaskboard();
+})
+
+function createNewProject(value) {
   let newProject = createProject(value);
   addProjectDom(value);
   let projectCat = {
@@ -17,24 +36,43 @@ newProjectBtn.addEventListener('click', function(){
     projectName:value,
   }
   todoList.push(projectCat);
-})
-
-function updateTaskboard() {
-  dashboard.innerHTML = "";
-  let currentBoard;
+}
+function addTodo() {
   for (let i = 0; i<todoList.length; i++) {
-    if (currentProject==todoList[i].projectName) {
-      currentBoard = todoList[i];
+    if (todoList[i].projectName==currentProject) {
+      let newTodo = todoList[i].newProject(taskInput.value, descInput.value, dateInput.value, priorityInput.value, noteInput.value)
+      todoList[i].todos.push(newTodo)
     }
   }
-  console.log(currentBoard)
-  console.log(currentProject)
+}
+function updateTaskboard() {
+  dashboard.innerHTML = "";
+  for (let i = 0; i<todoList.length; i++) {
+    console.log(todoList.length)
+    if (currentProject==todoList[i].projectName) {
+      let currentBoard = todoList[i];
+      currentBoard.todos.forEach(function(todo) {
+        let item = document.createElement('div');
+        let title = document.createElement('h2');
+        let date = document.createElement('p');
+        title.textContent = todo.title;
+        date.textContent = todo.dueDate;
+        item.classList.add('task');
+        item.appendChild(title);
+        item.appendChild(date);
+        dashboard.appendChild(item)
+        if (todo.priority=="low") {
+          item.style.backgroundColor = "#85FFC7";
+        } else if (todo.priority=="med") {
+          item.style.backgroundColor = "#FFFF8F";
+        } else if (todo.priority=="high") {
+          item.style.backgroundColor = "#ff6961";
+        }
+      })
+      
+    }
+  }
 
-
-  let item = document.createElement('div');
-  let title = document.createElement('p');
-  title.textContent = currentBoard.projectName;
-  dashboard.appendChild(item)
 }
 function addProjectDom (projectName) {
   let div = document.createElement('div');
@@ -63,5 +101,4 @@ function createProject(name) {
   }
 }
 
-let programming = createProject("programming");
-//console.log(programming("study", "study for work", "10-15", "!!!", ""))
+createNewProject('All');
