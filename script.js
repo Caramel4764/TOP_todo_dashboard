@@ -6,7 +6,7 @@ let dashboard = document.getElementById('dashboard');
 let newProjectInput = document.getElementById('newProjectInput');
 let addTaskBtn = document.getElementById('addTask');
 let todoSubmitBtn = document.getElementById("todo-submit-button");
-
+let taskForm = document.getElementById('addTodoMenu');
 let taskInput = document.getElementById('taskInput');
 let dateInput = document.getElementById('dateInput');
 let noteInput = document.getElementById('noteInput');
@@ -18,11 +18,16 @@ let priorityInput = document.getElementById('todo-priority');
 let currentProject = "All";
 let todoList = [];
 
+addTaskBtn.addEventListener('click', function(){
+  taskForm.style.visibility='visible';
+  
+})
 newProjectBtn.addEventListener('click', function(){
   createNewProject(newProjectInput.value)
 })
 
 todoSubmitBtn.addEventListener('click', function() {
+  taskForm.style.visibility='hidden';
   addTodo();
   updateTaskboard();
 })
@@ -72,7 +77,15 @@ function updateTaskboard() {
       
     }
   }
-
+  let addGrid = document.createElement('div');
+  addGrid.classList.add('task');
+  addGrid.innerHTML = "<h2>+</h2>";
+  addGrid.addEventListener('click', function(){
+    taskForm.style.visibility='visible';
+  })
+  addGrid.setAttribute('id', 'addTask');
+  dashboard.appendChild(addGrid);
+  
 }
 function addProjectDom (projectName) {
   let div = document.createElement('div');
