@@ -13,8 +13,23 @@ let noteInput = document.getElementById('noteInput');
 let descInput = document.getElementById('descInput');
 let priorityInput = document.getElementById('todo-priority');
 
+window.addEventListener('DOMContentLoaded', function(){
+  console.log(getCurrentDate())
+  dateInput.value = getCurrentDate();
+})
 
-
+function getCurrentDate() {
+  let date = new Date();
+  let month = date.getMonth()+1;
+  if (month < 10) {
+    month = "0"+month;
+  }
+  let day = date.getDate();
+  if (day < 10) {
+    day = "0"+day
+  }
+  return `${date.getFullYear()}-${month}-${day}`
+}
 let currentProject = "All";
 let todoList = [];
 
