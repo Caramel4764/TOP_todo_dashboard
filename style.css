@@ -34,6 +34,7 @@ body {
 .task {
   background-color: var(--p-white);
   height: 200px;
+  overflow: hidden;
 }
 
 #project {
@@ -121,4 +122,15 @@ textarea{
 }
 input, #todo-priority, textarea, label{
   font-size: 20px;
+}
+
+.isDone {
+  width: 20px !important;
+  height: 20px !important;
+  color: green;
+}
+.titleDiv {
+  display:flex;
+  align-items: center;
+  gap: 3px;
 }

@@ -1,3 +1,5 @@
+import dashboardObj from "./dashboard.js";
+
 let projectDiv = document.getElementById('project');
 
 let projectObj = (function(){
@@ -6,6 +8,9 @@ let projectObj = (function(){
   //changes current project
   function changeCurrentProject (projectName) {
     currentProject = projectName;
+  }
+  function getCurrentProject () {
+    return currentProject;
   }
   //creates a new project to array list
   function createNewProject(value) {
@@ -26,6 +31,8 @@ let projectObj = (function(){
     div.textContent=projectName;
     div.addEventListener('click', function(){
       projectObj.changeCurrentProject(projectName);
+      console.log({important: currentProject})
+
       dashboardObj.update()
     })
     projectDiv.appendChild(div);
@@ -52,6 +59,7 @@ let projectObj = (function(){
     currentProject,
     todoList,
     create: createNewProject,
+    getCurrentProject,
   }
 })()
 
