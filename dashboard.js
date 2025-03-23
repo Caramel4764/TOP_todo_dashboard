@@ -26,8 +26,11 @@ let dashboardObj = (function(){
     todoViewerDate.textContent = todo.dueDate;
     todoViewerNote.textContent = todo.note;
     todoViewerPriority.textContent = todo.priority;
+    todoViewerPriority.style.backgroundColor = getPriorityColor(todo);
     todoViewerIsDone.checked = todo.isCompleted;
   }
+
+  
   //takes a todo and returns the correct background color
   function getPriorityColor (todo) {
     let color = "";
@@ -46,41 +49,15 @@ let dashboardObj = (function(){
     }
       return color;
   }
-  function update() {
+  function updateAll() {
     dashboard.innerHTML = "";
     for (let i = 0; i<project.todoList.length; i++) {
-      if (project.getCurrentProject()==project.todoList[i].projectName) {
-        let currentBoard = project.todoList[i];
-        currentBoard.todos.forEach(function(todo) {
-          let item = document.createElement('div');
-          let title = document.createElement('h2');
-          let date = document.createElement('p');
-          let titleDiv = document.createElement('div');
-          titleDiv.classList.add('titleDiv');
-          let isDoneCheck = document.createElement('input');
-          isDoneCheck.classList.add("isDone")
-          isDoneCheck.setAttribute('type', 'checkbox');
-          title.textContent = todo.title;
-          date.textContent = todo.dueDate;
-          item.classList.add('task');
-          titleDiv.appendChild(isDoneCheck);
-          titleDiv.appendChild(title);
-          item.appendChild(titleDiv);
-          item.appendChild(date);
-          dashboard.appendChild(item)
-          item.addEventListener('click', function(){
-            todoViewerDiv.style.visibility='visible';
-            updateViewer(todo);
-          })
-          item.style.backgroundColor = getPriorityColor(todo);;
-          isDoneCheck.addEventListener('click', function(event){
-            event.stopPropagation()
-            todo.isCompleted = !todo.isCompleted;
-            item.style.backgroundColor = getPriorityColor(todo);
-          })
-        })
-      }
+      let currentBoard = project.todoList[i];
+      updateOneDashboardDom(currentBoard);
     }
+    createAddGrid();
+  }
+  function createAddGrid () {
     let addGrid = document.createElement('div');
     addGrid.classList.add('task');
     addGrid.innerHTML = "<h2>+</h2>";
@@ -90,9 +67,51 @@ let dashboardObj = (function(){
     addGrid.setAttribute('id', 'addTask');
     dashboard.appendChild(addGrid);
   }
+  function updateOneDashboardDom(projectDashboard) {
+    projectDashboard.todos.forEach(function(todo) {
+      let item = document.createElement('div');
+      let title = document.createElement('h2');
+      let date = document.createElement('p');
+      let titleDiv = document.createElement('div');
+      titleDiv.classList.add('titleDiv');
+      let isDoneCheck = document.createElement('input');
+      isDoneCheck.classList.add("isDone")
+      isDoneCheck.setAttribute('type', 'checkbox');
+      isDoneCheck.checked = todo.isCompleted;
+      title.textContent = todo.title;
+      date.textContent = todo.dueDate;
+      item.classList.add('task');
+      titleDiv.appendChild(isDoneCheck);
+      titleDiv.appendChild(title);
+      item.appendChild(titleDiv);
+      item.appendChild(date);
+      dashboard.appendChild(item)
+      item.addEventListener('click', function(){
+        todoViewerDiv.style.visibility='visible';
+        updateViewer(todo);
+      })
+      item.style.backgroundColor = getPriorityColor(todo);;
+      isDoneCheck.addEventListener('click', function(event){
+        event.stopPropagation()
+        todo.isCompleted = !todo.isCompleted;
+        item.style.backgroundColor = getPriorityColor(todo);
+      })
+    })
+  }
+  function update() {
+    dashboard.innerHTML = "";
+    for (let i = 0; i<project.todoList.length; i++) {
+      if (project.getCurrentProject()==project.todoList[i].projectName) {
+        let currentBoard = project.todoList[i];
+        updateOneDashboardDom(currentBoard);
+      }
+    }
+    createAddGrid();
+  }
   return {
     add: addTodo,
     update: update,
+    updateAll:updateAll,
   }
 })()
 

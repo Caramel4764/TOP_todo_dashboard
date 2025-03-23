@@ -145,7 +145,11 @@ input, #todo-priority, textarea, label{
   display: flex;
   width: 85vw;
   min-height: 600px;
-
+  overflow-y: scroll;
+}
+#todoViewerPriority {
+  padding: 6px;
+  border-radius: 5px;
 }
 #todoViewerCloser {
   top: 10px;

@@ -14,6 +14,8 @@ let descInput = document.getElementById('descInput');
 let priorityInput = document.getElementById('todo-priority');
 let taskInput = document.getElementById('taskInput');
 let todoViewerDiv = document.getElementById('todoViewerDiv');
+let todoViewerTitle = document.getElementById('todoViewerTitle');
+
 
 window.addEventListener('DOMContentLoaded', function(){
   dateInput.value = dateObj.getCurrentDate();
@@ -34,22 +36,37 @@ todoSubmitBtn.addEventListener('click', function() {
   taskForm.style.visibility='hidden';
   dashboard.add({
     name: taskInput.value||"Unnamed",
-    desc: descInput.value, 
+    desc: descInput.value||"No Description", 
     date: dateInput.value, 
-    priority: priorityInput.value, 
-    note: noteInput.value,
+    priority: priorityInput.value||"Low", 
+    note: noteInput.value||"No Note",
   });
+  dashboard.update();
+})
+todoViewerIsDone.addEventListener('click', function(){
+  //change iscompleted and updates
+  for (let j = 0; j<project.returnTodoList().length; j++) {
+    console.log(project.returnTodoList()[j].todos);
+    if (project.getCurrentProject()==project.returnTodoList()[j].projectName) {
+      for (let i = 0; i<project.returnTodoList()[j].todos.length; i++) {
+        if (todoViewerTitle.textContent==project.returnTodoList()[j].todos[i].title) {
+          project.returnTodoList()[j].todos[i].isCompleted = !project.returnTodoList()[j].todos[i].isCompleted;
+          console.log('swap')
+        }
+      }
+    }
+  }
+
   dashboard.update();
 })
 
 
-
-project.create('All');
+project.create('All', true);
 
 dashboard.add({
   name: "Test Task",
   desc: "This is a test task",
-  date: "test",
+  date: "2025-03-23",
   priority: "high",
   note: "I needed this preview layout",
 })

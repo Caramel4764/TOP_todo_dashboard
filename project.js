@@ -9,13 +9,16 @@ let projectObj = (function(){
   function changeCurrentProject (projectName) {
     currentProject = projectName;
   }
+  function returnTodoList () {
+    return todoList;
+  }
   function getCurrentProject () {
     return currentProject;
   }
   //creates a new project to array list
-  function createNewProject(value) {
+  function createNewProject(value, isAll) {
     let newProject = createProject(value);
-    addProjectDom(value);
+    addProjectDom(value, isAll);
     let projectCat = {
       newProject,
       todos: [],
@@ -25,15 +28,29 @@ let projectObj = (function(){
   }
   
   //creates a new project div in dom
-  function addProjectDom (projectName) {
+  function addProjectDom (projectName, isAll=false) {
+
     let div = document.createElement('div');
     div.classList.add("projectDivs");
     div.textContent=projectName;
     div.addEventListener('click', function(){
       projectObj.changeCurrentProject(projectName);
-      console.log({important: currentProject})
+      if (isAll) {
+        dashboardObj.updateAll();
+      } else {
+        dashboardObj.update();
 
-      dashboardObj.update()
+      }
+    })
+    projectDiv.appendChild(div);
+  }
+  function addProjectDomAll (projectName) {
+    let div = document.createElement('div');
+    div.classList.add("projectDivs");
+    div.textContent=projectName;
+    div.addEventListener('click', function(){
+      projectObj.changeCurrentProject(projectName);
+      dashboardObj.updateAll();
     })
     projectDiv.appendChild(div);
   }
@@ -60,6 +77,8 @@ let projectObj = (function(){
     todoList,
     create: createNewProject,
     getCurrentProject,
+    returnTodoList,
+    addProjectDomAll,
   }
 })()
 
