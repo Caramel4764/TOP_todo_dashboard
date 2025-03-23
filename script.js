@@ -13,6 +13,7 @@ let noteInput = document.getElementById('noteInput');
 let descInput = document.getElementById('descInput');
 let priorityInput = document.getElementById('todo-priority');
 let taskInput = document.getElementById('taskInput');
+let todoViewerDiv = document.getElementById('todoViewerDiv');
 
 window.addEventListener('DOMContentLoaded', function(){
   dateInput.value = dateObj.getCurrentDate();
@@ -26,11 +27,13 @@ newProjectBtn.addEventListener('click', function(){
   project.create(newProjectInput.value);
 
 })
-
+todoViewerCloser.addEventListener('click', function(){
+  todoViewerDiv.style.visibility='hidden';
+})
 todoSubmitBtn.addEventListener('click', function() {
   taskForm.style.visibility='hidden';
   dashboard.add({
-    name: taskInput.value,
+    name: taskInput.value||"Unnamed",
     desc: descInput.value, 
     date: dateInput.value, 
     priority: priorityInput.value, 
@@ -44,10 +47,10 @@ todoSubmitBtn.addEventListener('click', function() {
 project.create('All');
 
 dashboard.add({
-  name: "test",
-  desc: "test",
+  name: "Test Task",
+  desc: "This is a test task",
   date: "test",
-  priority: "low",
-  note: "test",
+  priority: "high",
+  note: "I needed this preview layout",
 })
 dashboard.update();

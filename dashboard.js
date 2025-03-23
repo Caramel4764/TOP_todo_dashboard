@@ -2,6 +2,14 @@ import project from "./project.js";
 
 let dashboard = document.getElementById('dashboard');
 let taskForm = document.getElementById('addTodoMenu');
+let todoViewerDiv = document.getElementById('todoViewerDiv');
+let todoViewerDesc = document.getElementById('todoViewerDesc');
+let todoViewerDate = document.getElementById('todoViewerDate');
+let todoViewerNote = document.getElementById('todoViewerNote');
+let todoViewerTitle = document.getElementById('todoViewerTitle');
+let todoViewerPriority = document.getElementById('todoViewerPriority');
+let todoViewerIsDone = document.getElementById('todoViewerIsDone');
+
 
 let dashboardObj = (function(){
   function addTodo(info) {
@@ -12,18 +20,31 @@ let dashboardObj = (function(){
       }
     }
   }
-  function getPriorityColor (priority) {
+  function updateViewer(todo) {
+    todoViewerTitle.textContent = todo.title;
+    todoViewerDesc.textContent = todo.desc;
+    todoViewerDate.textContent = todo.dueDate;
+    todoViewerNote.textContent = todo.note;
+    todoViewerPriority.textContent = todo.priority;
+    todoViewerIsDone.checked = todo.isCompleted;
+  }
+  //takes a todo and returns the correct background color
+  function getPriorityColor (todo) {
     let color = "";
-    if (priority=="low") {
-      color = "#85FFC7";
-    } else if (priority=="med") {
-      color = "#FFFF8F";
-    } else if (priority=="high") {
-      color = "#ff6961";
+    if (todo.isCompleted==true) {
+      color = "#63666A";
     } else {
-      color = "black";
+      if (todo.priority=="low") {
+        color = "#85FFC7";
+      } else if (todo.priority=="med") {
+        color = "#FFFF8F";
+      } else if (todo.priority=="high") {
+        color = "#ff6961";
+      } else {
+        color = "black";
+      }
     }
-    return color;
+      return color;
   }
   function update() {
     dashboard.innerHTML = "";
@@ -47,19 +68,15 @@ let dashboardObj = (function(){
           item.appendChild(titleDiv);
           item.appendChild(date);
           dashboard.appendChild(item)
-          if (todo.isCompleted==true) {
-            item.style.backgroundColor = "#63666A";
-          } else {
-          item.style.backgroundColor = getPriorityColor(todo.priority);
-          }
-          isDoneCheck.addEventListener('click', function(){
+          item.addEventListener('click', function(){
+            todoViewerDiv.style.visibility='visible';
+            updateViewer(todo);
+          })
+          item.style.backgroundColor = getPriorityColor(todo);;
+          isDoneCheck.addEventListener('click', function(event){
+            event.stopPropagation()
             todo.isCompleted = !todo.isCompleted;
-
-            if (todo.isCompleted==true) {
-              item.style.backgroundColor = "#63666A";
-            } else {
-              item.style.backgroundColor = getPriorityColor(todo.priority);
-            }
+            item.style.backgroundColor = getPriorityColor(todo);
           })
         })
       }

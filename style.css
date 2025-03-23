@@ -134,3 +134,55 @@ input, #todo-priority, textarea, label{
   align-items: center;
   gap: 3px;
 }
+
+#todoViewerDiv {
+  background-color: #DBCDB3;
+  border-radius: 10px;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  display: flex;
+  width: 85vw;
+  min-height: 600px;
+
+}
+#todoViewerCloser {
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  background-color: red;
+  border:none;
+  border-radius: 2px;
+  height: 30px;
+  width: 30px;
+}
+#todoViewer {
+  width:100%;
+  margin: 10px;
+
+}
+#todoHeadingText {
+  display:flex;
+  flex: 1;
+  width: 100%;
+  justify-content: space-between;
+}
+#todoHeading {
+  display:flex;
+  width:100%;
+  gap: 30px;
+  align-items: center;
+
+}
+
+#titleDiv {
+  display:flex;
+  align-items: center;
+  gap: 3px;
+}
+
+#titleDiv input{
+  width: 20px;
+  height: 20px;
+}
