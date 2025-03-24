@@ -2,7 +2,6 @@ import "./style.css";
 import dateObj from "./dateObj.js";
 import dashboard from "./dashboard.js";
 import project from "./project.js";
-
 let newProjectBtn = document.getElementById("newProject");
 let newProjectInput = document.getElementById('newProjectInput');
 let addTaskBtn = document.getElementById('addTask');
@@ -62,7 +61,6 @@ todoViewerIsDone.addEventListener('click', function(){
 
 
 project.create('All', true);
-
 dashboard.add({
   name: "Test Task",
   desc: "This is a test task",
@@ -70,4 +68,7 @@ dashboard.add({
   priority: "high",
   note: "I needed this preview layout",
 })
+project.updateProjectDom();
 dashboard.update();
+
+

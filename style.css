@@ -43,6 +43,7 @@ body {
   display:flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y:scroll;
 }
 .projectDivs {
   text-align: center;
@@ -139,6 +140,7 @@ input, #todo-priority, textarea, label{
   background-color: #DBCDB3;
   border-radius: 10px;
   position: fixed;
+  visibility: hidden;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;

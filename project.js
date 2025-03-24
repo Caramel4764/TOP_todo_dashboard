@@ -1,5 +1,5 @@
 import dashboardObj from "./dashboard.js";
-
+import svg from "./svg.js";
 let projectDiv = document.getElementById('project');
 
 let projectObj = (function(){
@@ -18,42 +18,85 @@ let projectObj = (function(){
   //creates a new project to array list
   function createNewProject(value, isAll) {
     let newProject = createProject(value);
-    addProjectDom(value, isAll);
     let projectCat = {
       newProject,
       todos: [],
       projectName:value,
     }
     projectObj.todoList.push(projectCat);
+    updateProjectDom();
   }
-  
-  //creates a new project div in dom
-  function addProjectDom (projectName, isAll=false) {
+  function deleteProject (projectName) {
+    for (let i = 0; i<projectObj.todoList.length; i++) {
+      if (projectName==projectObj.todoList[i].projectName) {
+        let targetProject = projectObj.todoList[i];
 
-    let div = document.createElement('div');
-    div.classList.add("projectDivs");
-    div.textContent=projectName;
-    div.addEventListener('click', function(){
-      projectObj.changeCurrentProject(projectName);
-      if (isAll) {
-        dashboardObj.updateAll();
-      } else {
-        dashboardObj.update();
+        console.log({"important": projectObj.todoList.length});
+
+        projectObj.todoList.splice(i, 1);
+        updateProjectDom("", true);
+
+        console.log({"after": projectObj.todoList.length});
 
       }
-    })
-    projectDiv.appendChild(div);
+    }
   }
-  function addProjectDomAll (projectName) {
-    let div = document.createElement('div');
-    div.classList.add("projectDivs");
-    div.textContent=projectName;
-    div.addEventListener('click', function(){
-      projectObj.changeCurrentProject(projectName);
-      dashboardObj.updateAll();
+  //creates a new project div in dom
+  function updateProjectDom () {
+    projectDiv.innerHTML = "";
+    //create input again
+
+    let newProjectDiv = document.createElement('div');
+    newProjectDiv.setAttribute('id', 'newProjectDiv');
+    let newProjectInput = document.createElement('input');
+    newProjectInput.setAttribute('id', 'newProjectInput');
+    let newProjectBtn = document.createElement('div');
+    newProjectBtn.setAttribute('id', 'newProject');
+    newProjectBtn.textContent="+";
+    newProjectDiv.appendChild(newProjectInput);
+    newProjectDiv.appendChild(newProjectBtn);
+    projectDiv.appendChild(newProjectDiv);
+    newProjectBtn.addEventListener('click', function(){
+      createNewProject(newProjectInput.value);
     })
-    projectDiv.appendChild(div);
+
+    for (let i = 0; i<projectObj.todoList.length; i++) {
+      let div = document.createElement('div');
+      div.classList.add("projectDivs");
+      div.textContent=projectObj.todoList[i].projectName;
+      div.addEventListener('click', function(){
+        projectObj.changeCurrentProject(projectObj.todoList[i]?projectObj.todoList[i].projectName:"All");
+        if (projectObj.todoList[i].projectName=="All") {
+          dashboardObj.updateAll();
+        } else {
+          dashboardObj.update();
+        }
+      })
+      let editIcon = svg.create({
+        icon: "bi-pen-fill",
+        path: "m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001",
+        width: "26",
+        color: "blue",
+      });
+      editIcon.addEventListener('click', function(){
+
+      })
+      div.appendChild(editIcon);
+
+      let trashIcon = svg.create({
+        icon: "bi-trash-fill",
+        path: "M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0",
+        width: "26",
+        color: "red",
+      });
+      trashIcon.addEventListener('click', function(){
+        deleteProject(div.textContent);
+      })
+      div.appendChild(trashIcon);
+      projectDiv.appendChild(div);
+    }
   }
+
   
   function createProject(name) {
     let projectName = name;
@@ -78,7 +121,7 @@ let projectObj = (function(){
     create: createNewProject,
     getCurrentProject,
     returnTodoList,
-    addProjectDomAll,
+    updateProjectDom,
   }
 })()
 
