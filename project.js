@@ -1,10 +1,12 @@
 import dashboardObj from "./dashboard.js";
 import svg from "./svg.js";
+let editMenu = document.getElementById('editMenu');
 let projectDiv = document.getElementById('project');
 
 let projectObj = (function(){
   let currentProject = "All";
   let todoList = [];
+  let currentEditProject = null;
   //changes current project
   function changeCurrentProject (projectName) {
     currentProject = projectName;
@@ -12,13 +14,16 @@ let projectObj = (function(){
   function returnTodoList () {
     return todoList;
   }
+  function returnCurrentEditProject () {
+    return currentEditProject;
+  }
   function getCurrentProject () {
     return currentProject;
   }
   //creates a new project to array list
   function createNewProject(value, isAll) {
     if (doesProjectExist(value)) {
-      Alert("A project with that name already exists.");
+      alert("A project with that name already exists.");
     } else {
       let newProject = createProject(value);
       let projectCat = {
@@ -29,6 +34,18 @@ let projectObj = (function(){
       projectObj.todoList.push(projectCat);
       updateProjectDom();
     }
+  }
+  function getProjectByName(name) {
+    for (let i = 0; i<projectObj.todoList.length; i++) {
+      if (name==projectObj.todoList[i].projectName) {
+        return projectObj.todoList[i];
+      }
+    }
+  }
+  function renameProject (projectName, newName) {
+    let target = getProjectByName(projectName);
+    target.projectName = newName;
+    updateProjectDom();
   }
   function doesProjectExist(value) {
     for (let i = 0; i<projectObj.todoList.length; i++) {
@@ -71,7 +88,7 @@ let projectObj = (function(){
       let div = document.createElement('div');
       projectContainer.classList.add("projectDivs");
       div.textContent=projectObj.todoList[i].projectName;
-      div.addEventListener('click', function(){
+      projectContainer.addEventListener('click', function(){
         projectObj.changeCurrentProject(projectObj.todoList[i]?projectObj.todoList[i].projectName:"All");
         if (projectObj.todoList[i].projectName=="All") {
           dashboardObj.updateAll();
@@ -89,7 +106,8 @@ let projectObj = (function(){
           color: "blue",
         });
         editIcon.addEventListener('click', function(){
-
+          currentEditProject = projectObj.todoList[i].projectName;
+          editMenu.style.visibility="visible";
         })
         iconDiv.appendChild(editIcon);
 
@@ -136,6 +154,8 @@ let projectObj = (function(){
     getCurrentProject,
     returnTodoList,
     updateProjectDom,
+    renameProject,
+    returnCurrentEditProject
   }
 })()
 

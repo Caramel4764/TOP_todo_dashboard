@@ -200,3 +200,33 @@ input, #todo-priority, textarea, label{
   display:flex;
   gap: 3px;
 }
+
+#editMenu {
+  background-color: rgb(255, 220, 184);
+  width: 90vw;
+  height: 25vh;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 15px;
+  visibility: hidden;
+
+}
+#editMenuFormSection{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#editMenuFormSection button{
+  padding: 5px;
+}
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}

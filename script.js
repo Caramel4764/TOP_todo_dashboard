@@ -14,8 +14,16 @@ let priorityInput = document.getElementById('todo-priority');
 let taskInput = document.getElementById('taskInput');
 let todoViewerDiv = document.getElementById('todoViewerDiv');
 let todoViewerTitle = document.getElementById('todoViewerTitle');
-
-
+let editMenuNameInput = document.getElementById('editMenuNameInput');
+let editMenu = document.getElementById('editMenu');
+let editMenuCloser = document.getElementById('editMenuCloser');
+let renameButton = document.getElementById('renameButton');
+editMenuCloser.addEventListener('click', function(){
+  editMenu.style.visibility='hidden';
+})
+renameButton.addEventListener('click', function(){
+  project.renameProject(project.returnCurrentEditProject(), editMenuNameInput.value);
+})
 window.addEventListener('DOMContentLoaded', function(){
   dateInput.value = dateObj.getCurrentDate();
 })
