@@ -10,6 +10,7 @@ let projectObj = (function(){
   //changes current project
   function changeCurrentProject (projectName) {
     currentProject = projectName;
+    updateProjectDom();
   }
   function returnTodoList () {
     return todoList;
@@ -45,6 +46,7 @@ let projectObj = (function(){
   function renameProject (projectName, newName) {
     let target = getProjectByName(projectName);
     target.projectName = newName;
+    changeCurrentProject(newName);
     updateProjectDom();
   }
   function doesProjectExist(value) {
@@ -87,6 +89,9 @@ let projectObj = (function(){
       let projectContainer = document.createElement('div');
       let div = document.createElement('div');
       projectContainer.classList.add("projectDivs");
+      if (projectObj.todoList[i].projectName==currentProject) {
+        projectContainer.classList.add("currentProject");
+      }
       div.textContent=projectObj.todoList[i].projectName;
       projectContainer.addEventListener('click', function(){
         projectObj.changeCurrentProject(projectObj.todoList[i]?projectObj.todoList[i].projectName:"All");

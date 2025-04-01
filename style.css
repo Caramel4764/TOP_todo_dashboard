@@ -230,3 +230,6 @@ input, #todo-priority, textarea, label{
   flex-direction: column;
   gap: 10px;
 }
+.currentProject {
+  background-color: rgb(8, 127, 135);
+}

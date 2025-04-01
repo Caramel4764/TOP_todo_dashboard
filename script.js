@@ -23,6 +23,7 @@ editMenuCloser.addEventListener('click', function(){
 })
 renameButton.addEventListener('click', function(){
   project.renameProject(project.returnCurrentEditProject(), editMenuNameInput.value);
+  editMenu.style.visibility='hidden';
 })
 window.addEventListener('DOMContentLoaded', function(){
   dateInput.value = dateObj.getCurrentDate();
