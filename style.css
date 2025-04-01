@@ -51,7 +51,10 @@ body {
   background-color: var(--red-purple);
   padding: 15px !important;
   display:inline-block;
-  
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 #newProject {
   text-align: center;
@@ -191,4 +194,9 @@ input, #todo-priority, textarea, label{
 #titleDiv input{
   width: 20px;
   height: 20px;
+}
+
+.iconDiv {
+  display:flex;
+  gap: 3px;
 }
