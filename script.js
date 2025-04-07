@@ -80,7 +80,7 @@ if (storedTodoData) {
     desc: "This is a test task",
     date: "2025-03-23",
     priority: "high",
-    note: "I needed this preview layout",
+    note: "I needed this preview layout. It makes debugging a lot easier.",
   })
 }
 project.updateProjectDom();

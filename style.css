@@ -27,6 +27,9 @@ body {
   justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 10px;
+  height: calc(100vh - 100px);
+  overflow-y:scroll;
+
 }
 #dashboard-div {
   background-color: var(--navy-blue);
