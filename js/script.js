@@ -1,4 +1,4 @@
-import "./style.css";
+import "../style.css";
 import dateObj from "./dateObj.js";
 import dashboard from "./dashboard.js";
 import project from "./project.js";
