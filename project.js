@@ -1,5 +1,6 @@
 import dashboardObj from "./dashboard.js";
 import svg from "./svg.js";
+import data from "./data.js"
 let editMenu = document.getElementById('editMenu');
 let projectDiv = document.getElementById('project');
 
@@ -32,14 +33,14 @@ let projectObj = (function(){
         todos: [],
         projectName:value,
       }
-      projectObj.todoList.push(projectCat);
+      data.addTodoList(projectCat);
       updateProjectDom();
     }
   }
   function getProjectByName(name) {
-    for (let i = 0; i<projectObj.todoList.length; i++) {
-      if (name==projectObj.todoList[i].projectName) {
-        return projectObj.todoList[i];
+    for (let i = 0; i<data.getTodoList().length; i++) {
+      if (name==data.getTodoList().projectName) {
+        return data.getTodoList()[i];
       }
     }
   }
@@ -50,18 +51,18 @@ let projectObj = (function(){
     updateProjectDom();
   }
   function doesProjectExist(value) {
-    for (let i = 0; i<projectObj.todoList.length; i++) {
-      if (value==projectObj.todoList[i].projectName) {
+    for (let i = 0; i<data.getTodoList().length; i++) {
+      if (value==data.getTodoList()[i].projectName) {
         return true;
       }
     }
     return false;
   }
   function deleteProject (projectName) {
-    for (let i = 0; i<projectObj.todoList.length; i++) {
-      if (projectName==projectObj.todoList[i].projectName) {
-        let targetProject = projectObj.todoList[i];
-        projectObj.todoList.splice(i, 1);
+    for (let i = 0; i<data.getTodoList().length; i++) {
+      if (projectName==data.getTodoList()[i].projectName) {
+        let targetProject = data.getTodoList()[i];
+        data.deleteTodoList(i);
         updateProjectDom();
       }
     }
@@ -85,24 +86,24 @@ let projectObj = (function(){
     newProjectBtn.addEventListener('click', function(){
       createNewProject(newProjectInput.value);
     })
-    for (let i = 0; i<projectObj.todoList.length; i++) {
+    for (let i = 0; i<data.getTodoList().length; i++) {
       let projectContainer = document.createElement('div');
       let div = document.createElement('div');
       projectContainer.classList.add("projectDivs");
-      if (projectObj.todoList[i].projectName==currentProject) {
+      if (data.getTodoList()[i].projectName==currentProject) {
         projectContainer.classList.add("currentProject");
       }
-      div.textContent=projectObj.todoList[i].projectName;
+      div.textContent=data.getTodoList()[i].projectName;
       projectContainer.addEventListener('click', function(){
-        projectObj.changeCurrentProject(projectObj.todoList[i]?projectObj.todoList[i].projectName:"All");
-        if (projectObj.todoList[i].projectName=="All") {
+        projectObj.changeCurrentProject(data.getTodoList()[i]?data.getTodoList()[i].projectName:"All");
+        if (data.getTodoList()[i].projectName=="All") {
           dashboardObj.updateAll();
         } else {
           dashboardObj.update();
         }
       })
       projectContainer.appendChild(div);
-      if (projectObj.todoList[i].projectName!="All") {
+      if (data.getTodoList()[i].projectName!="All") {
         let iconDiv = document.createElement('div');
         let editIcon = svg.create({
           icon: "bi-pen-fill",
@@ -111,7 +112,7 @@ let projectObj = (function(){
           color: "blue",
         });
         editIcon.addEventListener('click', function(){
-          currentEditProject = projectObj.todoList[i].projectName;
+          currentEditProject = data.getTodoList()[i].projectName;
           editMenu.style.visibility="visible";
         })
         iconDiv.appendChild(editIcon);

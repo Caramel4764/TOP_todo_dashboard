@@ -1,5 +1,5 @@
 import project from "./project.js";
-
+import data from "./data.js";
 let dashboard = document.getElementById('dashboard');
 let taskForm = document.getElementById('addTodoMenu');
 let todoViewerDiv = document.getElementById('todoViewerDiv');
@@ -13,10 +13,10 @@ let todoViewerIsDone = document.getElementById('todoViewerIsDone');
 
 let dashboardObj = (function(){
   function addTodo(info) {
-    for (let i = 0; i<project.todoList.length; i++) {
-      if (project.todoList[i].projectName==project.getCurrentProject()) {
-        let newTodo = project.todoList[i].newProject(info.name, info.desc, info.date, info.priority, info.note)
-        project.todoList[i].todos.push(newTodo) //info
+    for (let i = 0; i<data.getTodoList().length; i++) {
+      if (data.getTodoList()[i].projectName==project.getCurrentProject()) {
+        let newTodo = data.getTodoList()[i].newProject(info.name, info.desc, info.date, info.priority, info.note)
+        data.getTodoList()[i].todos.push(newTodo) //info
       }
     }
   }
@@ -51,8 +51,8 @@ let dashboardObj = (function(){
   }
   function updateAll() {
     dashboard.innerHTML = "";
-    for (let i = 0; i<project.todoList.length; i++) {
-      let currentBoard = project.todoList[i];
+    for (let i = 0; i<data.getTodoList().length; i++) {
+      let currentBoard = data.getTodoList()[i];
       updateOneDashboardDom(currentBoard);
     }
     createAddGrid();
@@ -100,9 +100,9 @@ let dashboardObj = (function(){
   }
   function update() {
     dashboard.innerHTML = "";
-    for (let i = 0; i<project.todoList.length; i++) {
-      if (project.getCurrentProject()==project.todoList[i].projectName) {
-        let currentBoard = project.todoList[i];
+    for (let i = 0; i<data.getTodoList().length; i++) {
+      if (project.getCurrentProject()==data.getTodoList()[i].projectName) {
+        let currentBoard = data.getTodoList()[i];
         updateOneDashboardDom(currentBoard);
       }
     }
