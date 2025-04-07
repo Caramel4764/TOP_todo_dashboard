@@ -27,9 +27,9 @@ let projectObj = (function(){
     if (doesProjectExist(value)) {
       alert("A project with that name already exists.");
     } else {
-      let newProject = createProject(value);
+      //let newProject = createProject(value);
       let projectCat = {
-        newProject,
+        //newProject,
         todos: [],
         projectName:value,
       }

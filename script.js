@@ -2,6 +2,7 @@ import "./style.css";
 import dateObj from "./dateObj.js";
 import dashboard from "./dashboard.js";
 import project from "./project.js";
+import data from "./data.js";
 let newProjectBtn = document.getElementById("newProject");
 let newProjectInput = document.getElementById('newProjectInput');
 let addTaskBtn = document.getElementById('addTask');
@@ -68,16 +69,21 @@ todoViewerIsDone.addEventListener('click', function(){
   dashboard.update();
 })
 
+const storedTodoData = localStorage.getItem('todoList');
+if (storedTodoData) {
+  data.setTodoList(JSON.parse(storedTodoData));
+} else {
+  project.create('All', true);
 
-project.create('All', true);
-dashboard.add({
-  name: "Test Task",
-  desc: "This is a test task",
-  date: "2025-03-23",
-  priority: "high",
-  note: "I needed this preview layout",
-})
+  dashboard.add({
+    name: "Test Task",
+    desc: "This is a test task",
+    date: "2025-03-23",
+    priority: "high",
+    note: "I needed this preview layout",
+  })
+}
 project.updateProjectDom();
-dashboard.update();
+dashboard.updateAll();
 
 

@@ -1,7 +1,9 @@
 let data = (function(){
+  let todoList = [];
   /*
   FORMAT
-    newProject: {
+    newProject: function createTodoInProject() {}
+    todos: [{
       projectName: projectName,
       isCompleted:false,
       title: title,
@@ -9,29 +11,40 @@ let data = (function(){
       dueDate: due,
       priority: priority,
       note: note,
-    },
-    todos: [],
-    projectName:value,
+    },],
+    projectName: nameOfProject,
   */
-
-  let todoList = [];
+ function updateLocalStorage() {
+  localStorage.setItem('todoList', JSON.stringify(todoList));
+ }
   function getTodoList() {
+    //console.log(todoList);
     return todoList;
   }
   function addTodoList(task) {
     todoList.push(task);
+    updateLocalStorage();
   }
   function setTodoList(newTodo) {
     todoList = newTodo;
+    updateLocalStorage();
+
   }
   function deleteTodoList(index) {
     todoList.splice(index, 1);
+    updateLocalStorage();
+
+  }
+  function addSingleTodo(index, task) {
+    todoList[index].todos.push(task);
   }
   return {
     getTodoList,
     addTodoList,
     setTodoList,
-    deleteTodoList
+    deleteTodoList,
+    addSingleTodo,
+    updateLocalStorage,
   }
 })()
 

@@ -12,16 +12,30 @@ let todoViewerIsDone = document.getElementById('todoViewerIsDone');
 
 
 let dashboardObj = (function(){
-  function addTodo(info) {
+  function addTodo({name, desc, date, priority, note}) {
     for (let i = 0; i<data.getTodoList().length; i++) {
       if (data.getTodoList()[i].projectName==project.getCurrentProject()) {
-        let newTodo = data.getTodoList()[i].newProject(info.name, info.desc, info.date, info.priority, info.note)
-        data.getTodoList()[i].todos.push(newTodo) //info
+        //let newTodo = project.todoList[i].newProject(info.name, info.desc, info.date, info.priority, info.note)
+        console.log(data.getTodoList()[i]);
+        //let newTodo = data.getTodoList()[i].newProject(info.name, info.desc, info.date, info.priority, info.note)
+        
+          let todo = {
+            projectName: project.getCurrentProject(),
+            isCompleted:false,
+            name: name,
+            desc: desc,
+            dueDate: date,
+            priority: priority,
+            note: note,
+          }
+
+        data.addSingleTodo(i, todo) //info
       }
     }
+    data.updateLocalStorage();
   }
   function updateViewer(todo) {
-    todoViewerTitle.textContent = todo.title;
+    todoViewerTitle.textContent = todo.name;
     todoViewerDesc.textContent = todo.desc;
     todoViewerDate.textContent = todo.dueDate;
     todoViewerNote.textContent = todo.note;
@@ -78,7 +92,7 @@ let dashboardObj = (function(){
       isDoneCheck.classList.add("isDone")
       isDoneCheck.setAttribute('type', 'checkbox');
       isDoneCheck.checked = todo.isCompleted;
-      title.textContent = todo.title;
+      title.textContent = todo.name;
       date.textContent = todo.dueDate;
       item.classList.add('task');
       titleDiv.appendChild(isDoneCheck);
