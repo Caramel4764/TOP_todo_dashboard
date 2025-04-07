@@ -4,8 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo</title>
-<script defer src="main.js"></script></head>
+</head>
 <body>
-  <h1>test</h1>
+  <h1>Todo</h1>
+  <div id="todoViewerDiv">
+    <div id="todoViewer">
+      <div id="todoHeading">
+        <div id="todoHeadingText">
+          <div id="titleDiv">
+            <input id="todoViewerIsDone" type="checkbox">
+            <h2 id="todoViewerTitle">Title</h2>
+          </div>
+          <h2 id="todoViewerPriority">Priority</h2>
+        </div>
+        <button id="todoViewerCloser">X</button>
+      </div>
+      <p id="todoViewerDesc">Description</p>
+      <h2 id="todoViewerDate">Due Date</h2>
+      <p id="todoViewerNote">Note</p>
+    </div>
+  </div>
+  <div id="editMenu">
+    <div class="grid">
+      <div id="editMenuHeader">
+        <h2>Please Enter A New Project Name</h2>
+      </div>
+      <div id="editMenuFormSection">
+        <button id="editMenuCloser">Nevermind</button>
+        <input type="text" id="editMenuNameInput">
+        <button id="renameButton">Rename</button>
+      </div>
+    </div>
+  </div>
+  <div id="addTodoMenuAdd">
+    <div id="addTodoMenu">
+      <form id='todo-form' action="">
+        <div id="todo-inputs">
+          <label for="task">Task</label>
+          <input id="taskInput" name='task' type="text">
+          <br>
+          <label for="desc">Description</label>
+          <textarea id="descInput" id="todo-desc" name='desc' type="text"></textarea>
+          <br>
+          <label for="date">Calendar</label>
+          <input id="dateInput" name='date' type="date">
+          <br>
+          <label for="priority">Priority</label>
+          <select id='todo-priority' name='priority' type="text">
+            <option value="low">Low</option>
+            <option value="med">Med</option>
+            <option value="high">High</option>
+          </select>
+          <br>
+          <label for="note">Note</label>
+          <textarea id="noteInput" name='note' type="text"></textarea>
+        </div>
+        <button id='todo-submit-button' type="button">Add</button>
+      </form>
+    </div>
+  </div>
+  <div id="fourth-divider">
+    <div id="project">
+      <div id="newProjectDiv">
+        <input id="newProjectInput">
+        <div id="newProject">+</div>
+      </div>
+    </div>
+    <div id="dashboard-div">
+      <div id="dashboard">
+        <!--<div class="task">
+          <h2>Task 1</h2>
+          <p class="date">10/14/2025</p>
+        </div>-->
+        <div class='task' id="addTask">
+          <h2>+</h2>
+        </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
